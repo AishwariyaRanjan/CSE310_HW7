@@ -23,6 +23,20 @@ int O[G.get_num_edges()];
     return O;
 }
 
-int get_k(){
+int Part1_k(Graph G){
+    int counter=0;
+int O[G.get_num_edges()];
+//int k=0;
+
+    for(int i=1; i <= num_nodes; i++){
+        for(int j=1; j <= num_nodes; j++){
+            if(G[i][j]==1)
+                counter++;
+        }
+        if(counter%2 != 0){
+            O[k] = i;
+            k++
+        }
+    }
     return k;
 }
