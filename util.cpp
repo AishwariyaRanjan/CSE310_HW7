@@ -5,21 +5,53 @@
 #include <iostream>
 using namespace std;
 
-Graph buildGraph(File file){
+Graph build_graph(File file, Graph G){
 
     ifstream myFile(file);
     myFile.open(file);
-    myFile.ignore(1,'\n');
+    
 
     //marking edges in the matrix
-    for (int i=1; i<=num_edges; i++){
-        int x, y;
-        
+    int x, y;
+    int numVertices
+
+    //myFile >> numVertices;
+    myFile.ignore(1,'\n');
+    // Vertice v[numVertices]; // array to hold vertices of the graph
+    // int index=0;
+
+    for (int i=1; i<=G.get_num_edges(); i++){
+                
         myFile >> x >> y;
         G[x][y] = 1;
         G[y][x] = 1;
+        //Store value of vertice 
+        // NOT COMPLETE -- how to check if x/y in v
+        // for(int j =0; j <=i; j++){
+        //     if(v[j].value != x   ||   v[j].value != y){
+        //         v[index].value = x;
+        //         v[index+1].value = y;
+        //         index+=2;
+        //     }
+        // }
     }
     myFile.close();
     return G;
+
+}
+
+Graph build_weighted_graph(Graph G, Edge M[]){
+    //Graph newG = G;
+
+    for(int i=0; i<G.get_num_nodes; i++){
+        for(int j=0; j<G.get_num_nodes; j++){
+            newG[i][j] = G[i][j];
+
+    }
+    for(int i=1; i<M.length; i++){
+        for(int j=1; j<M.length; j++){
+            newG[M[i].start][M[i].end] = M[i].weight;
+            newG[M[i].end][M[i].start] = M[i].weight;
+    }
 
 }

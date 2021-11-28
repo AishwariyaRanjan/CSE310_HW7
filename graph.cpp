@@ -3,6 +3,11 @@
 #include <iostream>
 using namespace std;
 
+// Edge::Edge(int startEdge, int endEdge){
+//     start = startEdge;
+//     end = endEdge;
+// }
+
 Graph::Graph(File file){
 
     ifstream myFile;

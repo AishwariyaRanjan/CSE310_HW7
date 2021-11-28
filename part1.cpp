@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-int k=0;
+int k=1;
 
 int * Part1(Graph G){
 int counter=0;
