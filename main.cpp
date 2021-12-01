@@ -33,6 +33,9 @@ int main{
     Graph newG = new Graph("graph.txt");
     newG = build_weighted_graph(G, M);
 
+//Printing Euler circuit
+    
+
 
 
 
