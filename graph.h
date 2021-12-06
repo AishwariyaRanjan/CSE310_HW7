@@ -1,29 +1,28 @@
-struct Vertice{
-    int value;
-    Vertice* next;
-}
+//graph.h
+#include <cstddef>
+#ifndef Graph_H
+#define Graph_H
 
-struct Edge{
-    
+struct Edge
+{
+
     int start, end;
     int weight;
- 
-    //Edge(int startEdge, int endEdge);
-}
+};
 
-class Graph{
-    public:
-    int num_nodes=0, num_edges=0;
-    int* G = NULL;
+class Graph
+{
+public:
+    int num_nodes, num_edges;
+    int **G;
 
     //constructors
-    Graph(File file);
-    Graph();
+    Graph(); //default constructor
+    Graph(int numNodes, int numEdges);
 
-    int get_num_edges();
-    int get_num_nodes();
+    int get_num_edges() const;
+    int get_num_nodes() const;
 
     ~Graph();
-
-   
 };
+#endif

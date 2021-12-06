@@ -1,63 +1,105 @@
-Edge Part3(int[][] S, int * O){
+//part3.cpp
+#include "graph.h"
+#include "part1.h"
+#include "part2.h"
+#include "part3.h"
+#include <fstream>
+#include <iostream>
+
+Edge *Part3(int **S, int *O, Graph graph)
+{
     //storing paths of all possible lengths
-    
-    Edge path[S.length][S.length];
-    //int x;
 
-    for(int i=0; i<=S.length; i++){ //iterates through paths of diff lenghts
-        for(int j=0; j<=S.length; j++){ // iterates through edges of one path length
-            for(int x=1; x<=S.length; x++) // checks if edge in S is of length 1...numNodes
-            if(S[i][j] == x){
-                path[x][j+1].start = O[i];//need to put O[i] from part2
-                //OR path[x][j]->start = ;
-                path[x][j+1].end = O[j];//HOW TO GET EDGE's VERTICES // need to put O[j] from part2
-                
-                
-            }          
-        }        
+    int Osize = get_size_of_O(graph);
+
+    Edge **path;
+    path = new Edge *[Osize];
+    for (int i = 1; i <= Osize; i++)
+    {
+        path[i] = new Edge[Osize];
     }
+    int col = 1;
+    for (int x = 1; x < Osize; x++)
+    { // checks if edge in S is of length 1...numNodes
+        for (int i = 1; i < Osize; i++)
+        { //iterates through paths of diff lenghts
+            for (int j = 1; j <= Osize; j++)
+            { // iterates through edges of one path length
 
-    Edge M[O.length];
-    for(int i=0; i<=O.length; i++){
+                if (S[i][j] == x && O[i] < O[j])
+                {
+                    path[x][col].start = O[i];
+                    path[x][col].end = O[j];
+
+                    col++;
+                }
+            }
+        }
+        col = 1;
+    }
+    //printing path
+    // std::cout << "printing path:" <<std::endl;
+    // for(int i=1; i<Osize; i++){
+    //     std::cout << "path length "<< i ;
+    //     for(int j=1; j<=Osize; j++){
+    //         if(path[i][j].start!=0 && path[i][j].end !=0)
+    //             std::cout << "("<< path[i][j].start <<","<<path[i][j].end<<") ";
+    //     }
+    //     std::cout<<std::endl;
+    // }
+
+    //initialize array M with -1
+    Edge *M = new Edge[Osize];
+    for (int i = 1; i <= Osize; i++)
+    {
         M[i].start = -1;
         M[i].end = -1;
     }
 
     M[1].start = path[1][1].start;
     M[1].end = path[1][1].end;
-    int index=2;
-    int k=1;
-    bool match=false;
+    M[1].weight = 1;
 
-     for(int i=1; i<=S.length; i++){ 
-        for(int j=1; j<=S.length; j++){
-        
-            if(M[k] != -1){
-                for(int n=1; n<index; n++){
-                    if((path[i][j].start != (M[n].start||M[n].end)) && (path[i][j].end != (M[n].start||M[n].end))){
-                        match = false;
-                    }
-                    else{
-                        match = true;
-                        break; 
-                    }
-                    
+    int index = 2;
+    int k = 1;
+    bool match = true;
+    for (int i = 1; i <= Osize; i++)
+    {
+        for (int j = 1; j <= Osize; j++)
+        {
+
+            //if(M[k].start != -1 && M[k].end != -1 ){
+            for (int n = 1; n < index; n++)
+            {
+                if ((path[i][j].start != M[n].start && path[i][j].start != M[n].end) && (path[i][j].end != M[n].start && path[i][j].end != M[n].end))
+                {
+                    match = false;
                 }
-                if(match == false){
-                    M[index].start = path[i][j].start;
-                    M[index].end = path[i][j].end;
-                    M[index].weight = i;
-                    index++;
-                }                
-            }            
-        }
-     }
+                else
+                {
+                    match = true;
+                    break;
+                }
+            }
 
-    std::cout  << "The greedy perfect matching in O: M = {" ; 
-    for(int i=1; i <= M.length; i++){
-        std::cout << "(" << M[i].start << "," << M[i].end << ") ";
+            if (match == false && path[i][j].start != 0 && path[i][j].end != 0)
+            {
+                M[index].start = path[i][j].start;
+                M[index].end = path[i][j].end;
+                M[index].weight = i;
+                index++;
+            }
+            //}
+        }
     }
-    std::cout  << "}" << endl; 
 
     return M;
+
+    for (int i = 1; i <= Osize; i++)
+    {
+        delete[] path[i];
+    }
+    delete[] path;
+
+    delete[] M;
 }

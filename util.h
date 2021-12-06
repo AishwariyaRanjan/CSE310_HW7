@@ -1,30 +1,25 @@
-#include <bits/stdc++.h>
-#define MAX 1000
+//util.h
 
-Graph build_graph(File file);
-Graph build_weighted_graph(Graph G, Edge M[]);
+#include "graph.h"
+//#include <bits/stdc++.h>
+#define MAX 30
+#ifndef UTILITY_H
+#define UTILITY_H
 
-/* C++ program to implement basic stack
-   operations */
-class Stack {
-    int top;
- 
+///* C++ program to implement basic stack
+//   operations */
+class Stack
+{
+
 public:
-    int a[MAX]; // Maximum size of Stack
- 
+    int top;
+    Edge a[MAX]; // Maximum size of Stack
+
     Stack() { top = -1; }
-    bool push(int x);
-    int pop();
+    bool push(int start, int end);
+    void pop();
     int peek();
     bool isEmpty();
 };
- 
-bool Stack::push(int x){};
- 
-int Stack::pop(){};
 
-int Stack::peek(){};
- 
-bool Stack::isEmpty(){};
-    
- 
+#endif

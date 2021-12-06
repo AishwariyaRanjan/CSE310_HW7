@@ -1,36 +1,38 @@
+//graph.cpp
 #include "graph.h"
 #include <fstream>
 #include <iostream>
+#include <cstring>
+#include "stdio.h"
 using namespace std;
 
-// Edge::Edge(int startEdge, int endEdge){
-//     start = startEdge;
-//     end = endEdge;
-// }
+//initializing graph constructor
+Graph::Graph(int numNodes, int numEdges)
+{
 
-Graph::Graph(File file){
+	num_nodes = numNodes;
+	num_edges = numEdges;
 
-    ifstream myFile;
-    myFile.open(file);
+	//create dynamic array of pointers
+	G = new int *[numNodes];
 
-    //create 2D array for adjecentcy matrix using input file
-    myFile >> num_nodes >> num_edges;
-    G = new int [num_nodes+1][num_nodes+1];
+	//create row for every pointer
+	for (int i = 0; i <= numNodes; i++)
+	{
+		G[i] = new int[numNodes];
 
-    //initialize matrix with 0s
-    for (int i=0; i<=num_nodes; i++){
-        for(int j=0; j<=num_nodes; j++){
-            G[i][j] = 0;
-        }
-    }
-    myFile.close();
+		//initialize adj matrix with 0
+		memset(G[i], 0, numNodes * sizeof(int));
+	}
 }
 
-Graph::get_num_edges(){
-    return num_edges;
+int Graph::get_num_edges() const
+{
+	return num_edges;
 }
-Graph::get_num_nodes{
-    return num_nodes;
+int Graph::get_num_nodes() const
+{
+	return num_nodes;
 }
 
-Graph::~Graph(){ delete[] G;}
+Graph::~Graph() {}
